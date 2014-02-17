@@ -32,22 +32,21 @@ module Jekyll
       end
     end
 
-    # class SVGGeoPattern < Liquid::Tag
+    class SVGGeoPattern < Liquid::Tag
+      def initialize(tag_name, text, tokens)
+        super
+        if m = HASH_REGEXP.match(text)
+          @opts = GeoPatterns.extract_options(m[0])
+        end
+      end
 
-    #   def initialize(tag_name, text, tokens)
-    #     super
-    #     if m = HASH_REGEXP.match text
-    #       @opts = extract_options(m[0])
-    #     end
-    #   end
-
-    #   def render(context)
-    #     text = @opts.delete(:text) || ""
-    #     GeoPattern.generate(text, @opts).svg_string
-    #   end
-    # end
+      def render(context)
+        text = @opts.delete(:text)
+        GeoPattern.generate(text, @opts).svg_string
+      end
+    end
   end
 end
 
 Liquid::Template.register_tag('base64_geo_pattern', Jekyll::GeoPatterns::Base64GeoPattern)
-# Liquid::Template.register_tag('svg_geo_pattern', Jekyll::GeoPatterns::SVGGeoPattern)
+Liquid::Template.register_tag('svg_geo_pattern', Jekyll::GeoPatterns::SVGGeoPattern)

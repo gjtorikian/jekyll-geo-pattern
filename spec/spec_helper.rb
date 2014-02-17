@@ -25,7 +25,7 @@ RSpec.configure do |config|
     @plugins_src = File.join(@fixtures_path, "_plugins")
 
     $stderr = File.new(File.join(File.dirname(__FILE__), 'dev', 'null.txt'), 'w')
-    $stdout = File.new(File.join(File.dirname(__FILE__), 'dev', 'null.txt'), 'w')
+    # $stdout = File.new(File.join(File.dirname(__FILE__), 'dev', 'null.txt'), 'w')
 
     @site = Jekyll::Site.new(Jekyll.configuration({
       "source"      => @fixtures_path.to_s,
