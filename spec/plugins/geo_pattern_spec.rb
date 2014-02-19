@@ -48,4 +48,11 @@ describe "Geo Pattern Tag" do
       expect(@post.output).to match /opacity:0.08066666666666666;stroke-width:26px;\" transform=\"translate\(-95, 1017.5\)\"/
     end
   end
+
+  context "uri_image" do
+    it "understands all numeral hex colors geopattern" do
+      setup("1984-03-06-basic-geopattern-all-nums.md", "basic_geopattern_all_nums.html")
+      expect(@post.output).to match /L3d3dy53My5vcmcv/
+    end
+  end
 end

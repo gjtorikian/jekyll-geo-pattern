@@ -41,7 +41,7 @@ module Jekyll
       opts.each do |opt, value|
         value.gsub! /"|'/, ""
 
-        if value =~ /([\w]+(\.[\w]+)*)/i
+        if value =~ /^(\w+?(\.[\w]+)*)/i
           context_val = GeoPatterns.look_up(context, $1)
           opts[opt] = context_val unless context_val.nil?
         end
