@@ -23,18 +23,7 @@ module Jekyll
 
         opts[match[1].to_sym] = value
       end
-      opts
-    end
-
-    # set it up such that variables, like `post.title`, are still processed
-    def self.look_up(context, name)
-      lookup = context
-
-      name.split(".").each do |value|
-        lookup = lookup[value]
-      end
-
-      lookup
+      GeoPatterns.scrub_options(opts, context)
     end
 
     def self.scrub_options(opts, context)
@@ -49,6 +38,17 @@ module Jekyll
       opts
     end
 
+    # set it up such that variables, like `post.title`, are still processed
+    def self.look_up(context, name)
+      lookup = context
+
+      name.split(".").each do |value|
+        lookup = lookup[value]
+      end
+
+      lookup
+    end
+
     class Base64GeoPattern < Liquid::Tag
       def initialize(tag_name, text, tokens)
         super
@@ -60,7 +60,6 @@ module Jekyll
 
         raise ArgumentError, "You must have the :text property passed in" if opts[:text].nil?
 
-        opts = GeoPatterns.scrub_options(opts, context)
         GeoPattern.generate(opts[:text], opts).base64_string
       end
     end
@@ -76,8 +75,22 @@ module Jekyll
 
         raise ArgumentError, "You must have the :text property passed in" if opts[:text].nil?
 
-        opts = GeoPatterns.scrub_options(opts, context)
         GeoPattern.generate(opts[:text], opts).svg_string
+      end
+    end
+
+    class UriImageGeoPattern < Liquid::Tag
+      def initialize(tag_name, text, tokens)
+        super
+        @text = text
+      end
+
+      def render(context)
+        opts = GeoPatterns.extract_options(@text, context)
+
+        raise ArgumentError, "You must have the :text property passed in" if opts[:text].nil?
+
+        GeoPattern.generate(opts[:text], opts).uri_image
       end
     end
   end
@@ -85,3 +98,4 @@ end
 
 Liquid::Template.register_tag('base64_geo_pattern', Jekyll::GeoPatterns::Base64GeoPattern)
 Liquid::Template.register_tag('svg_geo_pattern', Jekyll::GeoPatterns::SVGGeoPattern)
+Liquid::Template.register_tag('uri_geo_pattern', Jekyll::GeoPatterns::SVGGeoPattern)

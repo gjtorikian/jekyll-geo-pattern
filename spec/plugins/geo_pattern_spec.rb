@@ -6,6 +6,11 @@ describe "Geo Pattern Tag" do
     do_render(@post, layout)
   end
 
+  it "understands all numeral hex colors geopattern" do
+    setup("1984-03-06-basic-geopattern-all-nums.md", "basic_geopattern_all_nums.html")
+    expect(@post.output).to match /L3d3dy53My5vcmcv/
+  end
+
   context "base64_string" do
     it "understands basic geopattern" do
       setup("1984-03-06-basic-geopattern-base64.md", "basic_geopattern_base64.html")
@@ -50,9 +55,23 @@ describe "Geo Pattern Tag" do
   end
 
   context "uri_image" do
-    it "understands all numeral hex colors geopattern" do
-      setup("1984-03-06-basic-geopattern-all-nums.md", "basic_geopattern_all_nums.html")
-      expect(@post.output).to match /L3d3dy53My5vcmcv/
+    it "understands basic geopattern" do
+      setup("1984-03-06-basic-geopattern-uri.md", "basic_geopattern_uri.html")
+      expect(@post.output).to match /g fill="#ddd" style="opacity:0.14133333333333334;" transform="translate\(-33.948,-33.948\)/
+    end
+
+    it "fails for geopattern missing text" do
+      expect { setup("1984-03-06-geopattern-missing-text-uri.md", "geopattern_missing_text_uri.html") }.to raise_error
+    end
+
+    it "understands base color" do
+      setup("1984-03-06-geopattern-base-color-uri.md", "geopattern_base_color_uri.html")
+      expect(@post.output).to match /fill=\"#222\" style=\"opacity:0.13266666666666665;\" transform=\"translate\(33.948,169.74\) rotate\(45,/
+    end
+
+    it "understands generation" do
+      setup("1984-03-06-geopattern-generator-uri.md", "geopattern_generator_uri.html")
+      expect(@post.output).to match /opacity:0.08066666666666666;stroke-width:26px;\" transform=\"translate\(-95, 1017.5\)\"/
     end
   end
 end

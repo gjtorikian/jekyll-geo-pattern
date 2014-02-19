@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.files                 = ["lib/jekyll-geo-pattern.rb"]
 
   s.add_dependency "jekyll"
-  s.add_dependency "geo_pattern"
+  s.add_dependency "geo_pattern", "~> 1.1.0"
   s.add_development_dependency "rspec", "~> 2.13.0"
   s.add_development_dependency "rake"
 end
