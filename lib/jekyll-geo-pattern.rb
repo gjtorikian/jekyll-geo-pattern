@@ -6,7 +6,7 @@ module Jekyll
     VALID_SYNTAX = /([\w-]+)\s*=\s*(?:"([^"\\]*(?:\\.[^"\\]*)*)"|'([^'\\]*(?:\\.[^'\\]*)*)'|([\w\.-]+))/
 
     # from a string of options, construct a hash, without using `eval`
-    def self.extract_options( input )
+    def self.extract_options( input, context )
       opts = {}
       markup = input
 
@@ -56,7 +56,7 @@ module Jekyll
       end
 
       def render(context)
-        opts = GeoPatterns.extract_options(@text)
+        opts = GeoPatterns.extract_options(@text, context)
 
         raise ArgumentError, "You must have the :text property passed in" if opts[:text].nil?
 
@@ -72,7 +72,7 @@ module Jekyll
       end
 
       def render(context)
-        opts = GeoPatterns.extract_options(@text)
+        opts = GeoPatterns.extract_options(@text, context)
 
         raise ArgumentError, "You must have the :text property passed in" if opts[:text].nil?
 
