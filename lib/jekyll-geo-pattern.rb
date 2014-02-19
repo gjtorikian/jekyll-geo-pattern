@@ -98,4 +98,4 @@ end
 
 Liquid::Template.register_tag('base64_geo_pattern', Jekyll::GeoPatterns::Base64GeoPattern)
 Liquid::Template.register_tag('svg_geo_pattern', Jekyll::GeoPatterns::SVGGeoPattern)
-Liquid::Template.register_tag('uri_geo_pattern', Jekyll::GeoPatterns::SVGGeoPattern)
+Liquid::Template.register_tag('uri_geo_pattern', Jekyll::GeoPatterns::UriImageGeoPattern)

@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name                  = "jekyll-geo-pattern"
-  s.version               = "0.3.0"
+  s.version               = "0.3.1"
   s.summary               = "A liquid tag for Jekyll to generate an SVG/Base64 geo pattern"
   s.authors               = "Garen J. Torikian"
   s.homepage              = "https://github.com/gjtorikian/jekyll-geo-pattern"

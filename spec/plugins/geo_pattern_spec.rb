@@ -57,7 +57,7 @@ describe "Geo Pattern Tag" do
   context "uri_image" do
     it "understands basic geopattern" do
       setup("1984-03-06-basic-geopattern-uri.md", "basic_geopattern_uri.html")
-      expect(@post.output).to match /g fill="#ddd" style="opacity:0.14133333333333334;" transform="translate\(-33.948,-33.948\)/
+      expect(@post.output).to match /url\(data:image\/svg\+xml;base64,PHN2ZyB4bWxu/
     end
 
     it "fails for geopattern missing text" do
@@ -66,12 +66,12 @@ describe "Geo Pattern Tag" do
 
     it "understands base color" do
       setup("1984-03-06-geopattern-base-color-uri.md", "geopattern_base_color_uri.html")
-      expect(@post.output).to match /fill=\"#222\" style=\"opacity:0.13266666666666665;\" transform=\"translate\(33.948,169.74\) rotate\(45,/
+      expect(@post.output).to match /url\(data:image\/svg\+xml;base64,PHN2ZyB4bWxucz0i/
     end
 
     it "understands generation" do
       setup("1984-03-06-geopattern-generator-uri.md", "geopattern_generator_uri.html")
-      expect(@post.output).to match /opacity:0.08066666666666666;stroke-width:26px;\" transform=\"translate\(-95, 1017.5\)\"/
+      expect(@post.output).to match /url\(data:image\/svg\+xml;base64,PHN2ZyB4bWxucz0ia/
     end
   end
 end
