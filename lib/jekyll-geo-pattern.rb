@@ -2,18 +2,26 @@ require 'geo_pattern'
 
 module Jekyll
   module GeoPatterns
-    HASH_REGEXP = /\{(.+?)\}/
     VALID_KEYS = %w(:base_color :generator :text)
+    VALID_SYNTAX = /([\w-]+)\s*=\s*(?:"([^"\\]*(?:\\.[^"\\]*)*)"|'([^'\\]*(?:\\.[^'\\]*)*)'|([\w\.-]+))/
 
     # from a string of options, construct a hash, without using `eval`
     def self.extract_options( input )
-      opts = Hash.new
-      input.split(/, /).each do |entry|
-        entryMap = entry.split(/\=>/)
-        key = entryMap[0].strip
-        next unless VALID_KEYS.include? key
-        value = entryMap[1]
-        opts[key.strip[1..-1].to_sym] = value.nil? ? nil : value.strip
+      opts = {}
+      markup = input
+
+      while match = VALID_SYNTAX.match(markup) do
+        markup = markup[match.end(0)..-1]
+
+        value = if match[2]
+          match[2].gsub(/\\"/, '"')
+        elsif match[3]
+          match[3].gsub(/\\'/, "'")
+        elsif match[4]
+          context[match[4]]
+        end
+
+        opts[match[1].to_sym] = value
       end
       opts
     end
@@ -48,8 +56,7 @@ module Jekyll
       end
 
       def render(context)
-        m = HASH_REGEXP.match(@text)
-        opts = GeoPatterns.extract_options(m[1])
+        opts = GeoPatterns.extract_options(@text)
 
         raise ArgumentError, "You must have the :text property passed in" if opts[:text].nil?
 
@@ -65,8 +72,7 @@ module Jekyll
       end
 
       def render(context)
-        m = HASH_REGEXP.match(@text)
-        opts = GeoPatterns.extract_options(m[1])
+        opts = GeoPatterns.extract_options(@text)
 
         raise ArgumentError, "You must have the :text property passed in" if opts[:text].nil?
 
