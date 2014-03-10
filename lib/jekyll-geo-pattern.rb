@@ -2,7 +2,7 @@ require 'geo_pattern'
 
 module Jekyll
   module GeoPatterns
-    VALID_KEYS = %w(:base_color :generator :text)
+    VALID_KEYS = %w(:base_color :color :generator :text)
     VALID_SYNTAX = /([\w-]+)\s*=\s*(?:"([^"\\]*(?:\\.[^"\\]*)*)"|'([^'\\]*(?:\\.[^'\\]*)*)'|([\w\.-]+))/
 
     # from a string of options, construct a hash, without using `eval`
