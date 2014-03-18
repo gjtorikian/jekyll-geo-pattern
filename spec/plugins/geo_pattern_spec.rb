@@ -11,6 +11,11 @@ describe "Geo Pattern Tag" do
     expect(@post.output).to match /L3d3dy53My5vcmcv/
   end
 
+  it "ignores null properties" do
+    setup("1984-03-06-ignore-null-generator.md", "ignore_null_generator.html")
+    expect(@post.output).to match /cmcvMjAwMC9zdmciIHdpZHRoPSIyMDMiIGhlaWdodD0iMjAzIj48/
+  end
+
   context "base64_string" do
     it "understands basic geopattern" do
       setup("1984-03-06-basic-geopattern-base64.md", "basic_geopattern_base64.html")
