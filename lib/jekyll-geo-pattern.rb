@@ -28,6 +28,8 @@ module Jekyll
 
     def self.scrub_options(opts, context)
       opts.each do |opt, value|
+        next if value.nil? # ignore properties that have no corresponding value
+
         value.gsub! /"|'/, ""
 
         if value =~ /^(\w+?(\.[\w]+)*)/i
