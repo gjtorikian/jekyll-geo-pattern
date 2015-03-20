@@ -40,5 +40,5 @@ You can also pass in the other options from the geo_pattern library:
 With the Base64 pattern, you can generate something like this as a visual element:
 
 ```
-<div style="background-image:{% base64_geo_pattern {:text => 'Mastering Markdown'} %}"></div>
+<div style="background-image: url(data:image/svg+xml;base64,{% base64_geo_pattern text="Mastering Markdown" %});"></div>
 ```
